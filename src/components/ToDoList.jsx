@@ -1,26 +1,25 @@
 import ToDoListButton from "./ToDoListButton";
-const ToDoList = () => {
+const ToDoList = (props) => {
+  const { tasks, setCompleted, move, remove } = props;
+  tasks.sort((a, b) => b.id - a.id);
   return (
     <div className="wrapper">
       <ul>
-        <li>
-          <div className="left">
-            <button>✅</button>
-          </div>
-          <div className="center">bbb</div>
-          <div className="right">
-            <ToDoListButton></ToDoListButton>
-          </div>
-        </li>
-        <li>
-          <div className="left">
-            <button>◻️</button>
-          </div>
-          <div className="center">aaa</div>
-          <div className="right">
-            <ToDoListButton></ToDoListButton>
-          </div>
-        </li>
+        {tasks.map((task) => {
+          let checked = task.isCompleted ? "✅" : "◻️";
+          let strike = task.isCompleted ? "strike" : "";
+          return (
+            <li key={task.id}>
+              <div className="left">
+                <button onClick={() => setCompleted(task.id)}>{checked}</button>
+              </div>
+              <div className={`center ${strike}`}>{task.task}</div>
+              <div className="right">
+                <ToDoListButton id={task.id} tasks={tasks} move={move} remove={remove}></ToDoListButton>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

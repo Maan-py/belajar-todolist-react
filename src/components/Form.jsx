@@ -1,9 +1,12 @@
 const Form = (props) => {
-  const { addTask, newTask } = props;
+  const { addTask, newTask, taskCompleted, tasks } = props;
   return (
     <div className="wrapper">
       <header>
         <h3>🔰 TODOLIST </h3>
+        <span>
+          {taskCompleted || 0} / {tasks.length}
+        </span>
       </header>
 
       <form className="input-box">
